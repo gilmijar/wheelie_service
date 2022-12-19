@@ -29,7 +29,7 @@ def insert_these(sql, data):
     for batch in batches:
         bar.next()
         cursor.executemany(sql, batch)
-    connection.commit()
+        connection.commit()
     bar.finish()
 
 
@@ -118,10 +118,10 @@ if __name__ == '__main__':
     cursor = connection.cursor(named_tuple=True)
     master_list = []
     for yr in range(2016, 2023):
-        master_list.extend(gen_service(3, 2017, service_type='tire change', base_price=150))
-        master_list.extend(gen_service(11, 2017, service_type='tire change', base_price=150))
-        master_list.extend(gen_service(3, 2017, service_type='oil service'))
-        master_list.extend(gen_service(9, 2017, service_type='oil service'))
+        master_list.extend(gen_service(3, yr, service_type='tire change', base_price=150))
+        master_list.extend(gen_service(11, yr, service_type='tire change', base_price=150))
+        master_list.extend(gen_service(3, yr, service_type='oil service'))
+        master_list.extend(gen_service(9, yr, service_type='oil service'))
     master_list = sorted(master_list, key=lambda x: (x[2], x[0]))
     insert_services(master_list)
     connection.close()
