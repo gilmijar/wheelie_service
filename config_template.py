@@ -2,6 +2,7 @@
 ip = '192.168.1.1'
 port = 3306
 user = 'user_name'
+passwd = 'secret_p4ssw0rd'
 
 service_rate_groups = {#car_id: base_service_price
     2: 1,
