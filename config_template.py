@@ -1,6 +1,7 @@
-ip = '80.211.255.121'
-port = 3396
-user = 'ilia'
+"""For new installation clone me as config.py and fill with proper values (usernam, host, pass etc.)"""
+ip = '192.168.1.1'
+port = 3306
+user = 'user_name'
 
 service_rate_groups = {#car_id: base_service_price
     2: 1,

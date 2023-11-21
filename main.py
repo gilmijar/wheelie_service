@@ -34,7 +34,7 @@ def insert_these(sql, data):
 
 
 def insert_services(data):
-    sql = 'INSERT INTO service (inventory_id, service_type, service_date, service_cost) VALUES(?, ?, ?, ?)'
+    sql = 'INSERT IGNORE INTO service (inventory_id, service_type, service_date, service_cost) VALUES(?, ?, ?, ?)'
     insert_these(sql, data)
 
 
@@ -110,18 +110,18 @@ def gen_service(month, year, service_type='service', base_price=None):
 if __name__ == '__main__':
     connection = mariadb.connect(
         user=config.user,
-        password=keyring.get_password('wheelie', config.user),
+        password=config.passwd,
         host=config.ip,
         port=config.port,
-        database='wheelie'
+        database=config.database
     )
     cursor = connection.cursor(named_tuple=True)
     master_list = []
-    for yr in range(2016, 2023):
-        master_list.extend(gen_service(3, yr, service_type='tire change', base_price=150))
-        master_list.extend(gen_service(11, yr, service_type='tire change', base_price=150))
-        master_list.extend(gen_service(3, yr, service_type='oil service'))
-        master_list.extend(gen_service(9, yr, service_type='oil service'))
+    for yr in range(2016, 2028):
+        master_list.extend(gen_service(month=3, year=yr, service_type='tire change', base_price=150))
+        master_list.extend(gen_service(month=11, year=yr, service_type='tire change', base_price=150))
+        master_list.extend(gen_service(month=3, year=yr, service_type='oil service'))
+        master_list.extend(gen_service(month=9, year=yr, service_type='oil service'))
     master_list = sorted(master_list, key=lambda x: (x[2], x[0]))
     insert_services(master_list)
     connection.close()

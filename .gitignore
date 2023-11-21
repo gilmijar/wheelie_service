@@ -2,3 +2,4 @@
 /.venv
 /__pycache__
 /pycharm_venv_2
+/config.py
